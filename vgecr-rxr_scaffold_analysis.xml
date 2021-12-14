@@ -1,0 +1,44 @@
+<ROSETTASCRIPTS>
+  <SCOREFXNS>
+    <ScoreFunction name="sf" weights="ref2015"/>
+  </SCOREFXNS>
+  <RESIDUE_SELECTORS>
+  </RESIDUE_SELECTORS>
+  <TASKOPERATIONS>
+  </TASKOPERATIONS>
+  <FILTERS>
+    <ResidueCount name="nres" />
+    <OversaturatedHbondAcceptorFilter name="oversat" scorefxn="sf" max_allowed_oversaturated="100" consider_mainchain_only="false" confidence="0.0"/>
+    <AtomicContactCount name="acc" confidence="0.0" partition="jump" normalize_by_sasa="1" jump="1"/>
+    <CavityVolume name="cav" confidence="0.0"/>
+    <ExposedHydrophobics name="exphyd" confidence="0.0"/>
+    <BuriedUnsatHbonds name="buns_bb_heavy" report_bb_heavy_atom_unsats="true" scorefxn="beta" cutoff="100" residue_surface_cutoff="20.0" ignore_surface_res="true" confidence="0.0"/>
+    <CalculatorFilter name="normcav" threshold="0" equation="x/n" confidence="0.0">
+      <Var name="x" filter="cav" />
+      <Var name="n" filter="nres" />
+    </CalculatorFilter>
+    <TotalSasa name="sasa" confidence="0.0"/>
+    <TotalSasa name="sasahphobe" hydrophobic="1" confidence="0.0" />
+    <CalculatorFilter name="hphobe_over_tsasa" threshold="0" equation="x/n" confidence="0.0">
+      <Var name="x" filter="sasahphobe" />
+      <Var name="n" filter="sasa" />
+    </CalculatorFilter>
+  </FILTERS>
+  <MOVERS>
+    <InterfaceAnalyzerMover name="iam" scorefxn="sf" interface_sc="True" packstat="True" pack_separated="True" jump="1" />
+  </MOVERS>
+  <PROTOCOLS>
+    <Add mover_name="iam"/>
+    <Add filter_name="nres"/>
+    <Add filter_name="oversat"/>
+    <Add filter_name="acc"/>
+    <Add filter_name="cav"/>
+    <Add filter_name="exphyd"/>
+    <Add filter_name="buns_bb_heavy"/>
+    <Add filter_name="normcav"/>
+    <Add filter_name="sasahphobe"/>
+    <Add filter_name="sasa"/>
+    <Add filter_name="hphobe_over_tsasa"/>
+  </PROTOCOLS>
+  <OUTPUT/>
+</ROSETTASCRIPTS>

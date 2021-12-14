@@ -1,0 +1,21 @@
+<ROSETTASCRIPTS>
+  <SCOREFXNS>
+    <ScoreFunction name="beta" weights="beta_genpot"/>
+  </SCOREFXNS>
+  <RESIDUE_SELECTORS>
+  </RESIDUE_SELECTORS>
+  <TASKOPERATIONS>
+    <ReadResfile name="resfile"/>
+  </TASKOPERATIONS>
+  <FILTERS>
+  </FILTERS>
+  <MOVERS>
+    <AddOrRemoveMatchCsts cst_instruction="add_new" name="add_match_constraints"/>
+    <CoupledMovesProtocol name="coupled_moves" task_operations="resfile"/>
+  </MOVERS>
+  <PROTOCOLS>
+    <Add mover_name="add_match_constraints"/>
+    <Add mover_name="coupled_moves"/>
+  </PROTOCOLS>
+  <OUTPUT/>
+</ROSETTASCRIPTS>

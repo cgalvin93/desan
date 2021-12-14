@@ -1,0 +1,40 @@
+<ROSETTASCRIPTS>
+  <SCOREFXNS>
+    <ScoreFunction name="beta" weights="ligand"/>
+  </SCOREFXNS>
+  <RESIDUE_SELECTORS>
+  </RESIDUE_SELECTORS>
+  <TASKOPERATIONS>
+  </TASKOPERATIONS>
+  <FILTERS>
+    <DSasa name="dsasa" confidence="0.0"/>
+    <PackStat name="packstat" threshold="0.0" confidence="0.0"/>
+    <HbondsToResidue name="hbtolig" scorefxn="beta" partners="0" backbone="true" residue="1X" confidence="0.0"/>
+    <OversaturatedHbondAcceptorFilter name="oversat" scorefxn="beta" max_allowed_oversaturated="10" consider_mainchain_only="false" confidence="0.0"/>
+    <BindingStrain name="strain" confidence="0.0" jump="2"/>
+    <AtomicContactCount name="acc" confidence="0.0" partition="jump" normalize_by_sasa="1" jump="2"/>
+    <CavityVolume name="cav" confidence="0.0"/>
+    <ExposedHydrophobics name="exphyd" confidence="0.0"/>
+    <ShapeComplementarity name="sc" confidence="0.0" jump="2"/>
+    <BuriedUnsatHbonds name="buns_bb_heavy" report_bb_heavy_atom_unsats="true" scorefxn="beta" cutoff="4" residue_surface_cutoff="20.0" ignore_surface_res="true" confidence="0.0"/>
+    <Ddg name="ddg" confidence="0" repeats="3" jump="2"/>
+    <RotamerBoltzmannWeight name="boltz" scorefxn="beta" ddG_threshold="0" task_operations="enzto" jump="2" unbound="1" temperature="0.8" skip_ala_scan="1" skip_report="1" no_modified_ddG="1"/>
+  </FILTERS>
+  <MOVERS>
+  </MOVERS>
+  <PROTOCOLS>
+    <Add filter_name="strain"/>
+    <Add filter_name="acc"/>
+    <Add filter_name="cav"/>
+    <Add filter_name="exphyd"/>
+    <Add filter_name="buns_bb_heavy"/>
+    <Add filter_name="sc"/>
+    <Add filter_name="dsasa"/>
+    <Add filter_name="packstat"/>
+    <Add filter_name="hbtolig"/>
+    <Add filter_name="oversat"/>
+    <Add filter_name="ddg"/>
+    <Add filter_name="boltz"/>
+  </PROTOCOLS>
+  <OUTPUT/>
+</ROSETTASCRIPTS>
